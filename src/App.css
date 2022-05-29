@@ -36,3 +36,50 @@
     transform: rotate(360deg);
   }
 }
+
+body,
+table {
+  text-align: center;
+  margin: 0 auto;
+}
+
+table {
+  border: solid 1px #000000;
+  margin-top: 50px;
+}
+
+table thead td {
+  background-color: #dee6e6;
+  border: solid 1px #353838;
+  color: #000000;
+  padding: 10px;
+  text-align: center;
+}
+
+table tbody td {
+  border: solid 1px #353838;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 1em;
+}
+
+h1 {
+  padding-top: 20px;
+  margin: 0 auto;
+}
+
+button {
+  background-color: #a19eb1;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}

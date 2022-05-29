@@ -1,10 +1,50 @@
 import './App.css';
 import contacts from './contacts.json';
+import { useState } from 'react';
+
+let fiveFirstContacts = contacts.slice(0, 5);
 
 function App() {
-  let fiveFirstContacts = contacts.slice(0, 5);
+  const [contactsList, setContactsList] = useState(fiveFirstContacts);
+
+  const addRandomContact = () => {
+    const contactsListCopy = [...contactsList];
+    const randomContact =
+      contactsListCopy[Math.floor(Math.random() * contactsListCopy.length)];
+    contactsListCopy.push(randomContact);
+    setContactsList(contactsListCopy);
+  };
+
+  const sortByName = () => {
+    const contactsListCopy = [...contactsList];
+    contactsListCopy.sort((a, b) => a.name.localeCompare(b.name));
+    setContactsList(contactsListCopy);
+  };
+
+  const sortByPopularity = () => {
+    const contactsListCopy = [...contactsList];
+    contactsListCopy.sort((a, b) => b.popularity - a.popularity);
+    setContactsList(contactsListCopy);
+  };
+
+  const deleteButton = (index) => {
+    const contactsListCopy = [...contactsList];
+    contactsListCopy.splice(index, 1);
+    setContactsList(contactsListCopy);
+  };
+
   return (
     <div className="App">
+      <h1 style={{ marginBottom: 30 }}>IRONCONTACTS</h1>
+      <button onClick={addRandomContact} style={{ marginRight: 50 }}>
+        Add Random Contact
+      </button>
+      <button onClick={sortByName} style={{ marginRight: 50 }}>
+        Sort by Name
+      </button>
+      <button onClick={sortByPopularity} style={{ marginBottom: 20 }}>
+        Sort by Popularity
+      </button>
       <table>
         <thead>
           <tr>
@@ -26,17 +66,13 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {fiveFirstContacts.map((contact) => {
+          {contactsList.map((contact) => {
             const wonOscar = contact.wonOscar ? '🏆' : null;
             const wonEmmy = contact.wonEmmy ? '🌟' : null;
             return (
               <tr key={contact.id}>
                 <td>
-                  <img
-                    src={contact.pictureUrl}
-                    alt={contact.name}
-                    style={{ width: 200, height: 200 }}
-                  />
+                  <img src={contact.pictureUrl} alt={contact.name} />
                 </td>
                 <td>{contact.name}</td>
                 <td>
@@ -44,6 +80,11 @@ function App() {
                 </td>
                 <td>{wonOscar}</td>
                 <td>{wonEmmy}</td>
+                <td>
+                  <button onClick={() => deleteButton(contact.id)}>
+                    Delete Contact
+                  </button>
+                </td>
               </tr>
             );
           })}
